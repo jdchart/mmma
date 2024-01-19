@@ -4,3 +4,4 @@ src/mmma.egg-info/
 test-corpora/
 examples/__pycache__/
 .DS_Store
+notes/
