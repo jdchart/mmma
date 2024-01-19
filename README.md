@@ -1,7 +1,7 @@
 # mmma
 _MultiModal Media Analysis_
 
-MMMA offers a format-agnostic environment for multimodal media analysis.
+MMMA offers a format-agnostic environment for multimodal media analysis. Not to be confused with [MMA](https://en.wikipedia.org/wiki/Mixed_martial_arts).
 
 1. [Basic usage](#basic-usage)
 2. [Theoretical premise](#theoretical-premise)
@@ -16,8 +16,6 @@ import mmma
 ```
 
 ## Theoretical premise
-
-![MMMA Architecture](/docs/mmma%20architechture.jpg "MMMA Architecture")
 
 ### Corpora
 MMMA is built upon that idea that all media object (and most transparently _multimedia_ objects) are **composed objects**, or said plainly: **all media is multimodal**. Here are some examples:
@@ -60,6 +58,8 @@ In MMMA, every `Corpus` can be given any number of metadata (there is no default
 In MMMA, annotations are grouped together into lists, allowing the user to perform operations of groupings of annotations, such as filtered selections, visualizations etc.
 
 ## Technical premise
+
+![MMMA Architecture](/docs/mmma%20architechture.jpg "MMMA Architecture")
 
 ### Corpora and handlers
 MMMA is an environment for the analysis of different types of media files.
