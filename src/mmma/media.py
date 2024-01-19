@@ -1,5 +1,6 @@
 import os
 from .mmma_element import MMMAElement
+from .handlers import get_video_handler, get_audio_handler
 
 class Media(MMMAElement):
     def __init__(self, media_path : str) -> None:
@@ -8,9 +9,15 @@ class Media(MMMAElement):
 
         
         """
+
         super().__init__()
+
         self.media_path = media_path
         self.type, self.ext = self._get_type(self.media_path)
+
+        self.handler = self._get_handler(self.type, self.ext)
+
+        self.handler.decode()
 
     def _get_type(self, path : str):
         """Determine the media file's type."""
@@ -27,3 +34,15 @@ class Media(MMMAElement):
             return [None, None]
         else:
             print(f"Cannot determine type of \".{path}\". the file does not exist.")
+
+    def _get_handler(self, media_type : str, ext : str) -> dict:
+        """Retrieve the handler object that corresponds to the media type and file format."""
+
+        if media_type == "Video":
+            return get_video_handler(ext, self) 
+        elif media_type == "Audio":
+            return get_audio_handler(ext, self) 
+        # elif media_type == "Image":
+        #     return_data = self._get_image_file_data(path, ext)
+        # elif media_type == "Document":
+        #     return_data = self._get_document_file_data(path, ext)

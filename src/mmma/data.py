@@ -2,13 +2,13 @@
 accepted_media = {
     "Video" : [
         {"ext" : "mp4", "alias" : []},
-        {"ext" : "mpg", "alias" : []}
+        #{"ext" : "mpg", "alias" : []}
     ],
     "Audio" : [
-        {"ext" : "aif", "alias" : []},
-        {"ext" : "wav", "alias" : ["wave"]},
-        {"ext" : "ogg", "alias" : []},
-        {"ext" : "mp3", "alias" : []}
+        #{"ext" : "aif", "alias" : []},
+        {"ext" : "wav", "alias" : ["wave"]}
+        #{"ext" : "ogg", "alias" : []},
+        #{"ext" : "mp3", "alias" : []}
     ],
     "Image" : [
         {"ext" : "png", "alias" : []},
