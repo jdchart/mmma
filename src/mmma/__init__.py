@@ -1,5 +1,9 @@
-from .corpus import Corpus
-from .media import Media
+# To read elements from file:
 from .mmma_element import read
-from .analysis.description import DescriptionAnalysis
-from .analysis.description.audio import MFCCAnalysis
+
+# Main Corpus class:
+from .corpus import Corpus
+
+
+#from .analysis.description import DescriptionAnalysis
+#from .analysis.description.audio import MFCCAnalysis

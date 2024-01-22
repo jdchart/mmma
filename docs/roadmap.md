@@ -8,4 +8,5 @@
 - [ ] 3D
 
 ## Various
-- [ ] Add routine for installing flucoma binaries
+- [ ] Add support of media stocked online (corpora with a url render_path).
+- [ ] Add routine for installing flucoma binaries.

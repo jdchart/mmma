@@ -3,13 +3,18 @@ import os
 import uuid
 
 class MMMAElement:
-    def __init__(self) -> None:
+    def __init__(self, **kwargs) -> None:
         """
-        Basic mmma element (base class for Media and Corpus).
+        Basic mmma element (base class for Corpus, Annotation and AnnotationList).
+
+        attributes
+        ----------
+        - uuid : uuid.uuid4(). a unique ID is automatically attributed to the object on creation with uuid.uuid4().
+        - mmma_type : str. The type of MMMAElement ("corpus", "annotation", "annotationlist"). Set on creation with the 'mmma_type' kwarg.
         """
         
         self.uuid = uuid.uuid4()
-        self.type = None
+        self.mmma_type = kwargs.get('mmma_type', None)
 
     def write(self, path : str) -> None:
         """
@@ -22,11 +27,11 @@ class MMMAElement:
             with open(path, 'wb') as write_file:
                 pickle.dump(self, write_file, pickle.HIGHEST_PROTOCOL)
         else:
-            print(f"Unable to save to path \"{path}\". Must have the \".pkl\" extension.")
+            print(f"Unable to write to path \"{path}\". Must have the \".pkl\" extension.")
     
 def read(path : str) -> None:
     """
-    Read an mmma element (Corpus or Media) from disk.
+    Read an mmma element from disk.
     
     Path must have a ".pkl" extension.
     """

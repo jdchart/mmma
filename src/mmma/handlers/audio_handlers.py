@@ -10,8 +10,8 @@ class AudioHandler:
         self.sample_rate = None
         self.bit_depth = None
 
-        #self.start_frame = kwargs.get("start_frame", 0)
-        #self.end_frame = kwargs.get("start_frame", -1)
+        # self.start_frame = kwargs.get("start_frame", 0)
+        # self.end_frame = kwargs.get("start_frame", -1)
 
     def decode(self):
         """Get basic info about media file."""
