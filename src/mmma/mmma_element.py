@@ -1,6 +1,7 @@
 import pickle
 import os
 import uuid
+from .metadata import get_metadata_system
 
 class MMMAElement:
     def __init__(self, **kwargs) -> None:
@@ -11,10 +12,12 @@ class MMMAElement:
         ----------
         - uuid : uuid.uuid4(). a unique ID is automatically attributed to the object on creation with uuid.uuid4().
         - mmma_type : str. The type of MMMAElement ("corpus", "annotation", "annotationlist"). Set on creation with the 'mmma_type' kwarg.
+        - metadata : Metadata. A Metadata object used to describe the element (by default dublin_core).
         """
         
         self.uuid = uuid.uuid4()
         self.mmma_type = kwargs.get('mmma_type', None)
+        self.metadata = get_metadata_system(kwargs.get('metadata_system', "dublin_core"))
 
     def write(self, path : str) -> None:
         """
@@ -28,6 +31,11 @@ class MMMAElement:
                 pickle.dump(self, write_file, pickle.HIGHEST_PROTOCOL)
         else:
             print(f"Unable to write to path \"{path}\". Must have the \".pkl\" extension.")
+
+    def set_metadata(self, attribute_name : str, value):
+        """Set the attribute of the element's metadata object."""
+
+        setattr(self.metadata, attribute_name, value)
     
 def read(path : str) -> None:
     """
