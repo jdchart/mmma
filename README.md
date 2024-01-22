@@ -68,10 +68,12 @@ The most basic operation is the load a media file. All media files are represent
 
 The handler is an instance of the `Handler` class. Upon creation, the `Corpus` class will detect what type of media file is being loaded, and attribute the corresponding `Handler` subclass. For example, when loading a _.wav_ file, MMMA will attribute it the `WAVHandler` class, which is a subclass of `AudioHandler`, which is a subclass of `Handler`. In another instance, we may load an _.mp3_ file, which will be attributed the `MP3Handler` handler, which is again a subclass of `AudioHandler` and `Handler`.
 
-Each handler needs to provide a basic set of functions and attributes that vary according to its type - for example all video handlers must have the function `getFrame(idx)` which must always return a corpus object that is the image of that frame, all video and audio handlers must have an attribute called `duration_ms` which give the length of the file in milliseconds. A list of obligatory functions and attributes can be found in the [contributing](/docs/contributing.md) section.
+Each handler needs to provide a basic set of functions and attributes that vary according to its type - for example all video handlers must have the function `get_frame(idx)` which must always return a corpus object that is the image of that frame, all video and audio handlers must have an attribute called `duration_ms` which give the length of the file in milliseconds. A list of obligatory functions and attributes can be found in the [contributing](/docs/contributing.md) section.
 
 This means that, whether the user is using a _.wav_ or _/mp3_ file, the user will always interact with the same `Corpus` class. Further still, whether they are manipulating a video or audio file, to get the length they will always use `Corpus().duration_ms`. MMMA is designed to be extensible - we provide a large number of handlers for basic media formats, but we encourage [constribution](/docs/contributing.md) to add other formats.
 
 ### Annotations and annotation lists
+Coming soon...
 
 ### Analysis
+Coming soon...
