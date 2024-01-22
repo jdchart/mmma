@@ -1,6 +1,8 @@
 import os
 from .mmma_element import MMMAElement
 from .handlers import get_video_handler, get_audio_handler, get_image_handler
+from .region import Region
+from .annotation import Annotation
 
 class Corpus(MMMAElement):
     def __init__(self, **kwargs) -> None:
@@ -28,6 +30,11 @@ class Corpus(MMMAElement):
             if self.handler != None:
                 # Decode media attributes:
                 self.handler.decode()
+
+    def add_annotation(self, **kwargs):
+        """Create a new annotation object that targets the Corpus."""
+        new_annotation = Annotation(target = self, region = Region(**kwargs.get("region", None)), props = kwargs.get("props", None))
+        return new_annotation
 
     def _get_type(self, path : str):
         """Determine the media file's type."""

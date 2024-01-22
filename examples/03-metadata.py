@@ -1,5 +1,5 @@
 """
-02 Metadata.
+03 Metadata.
 
 Corpus, Annotation and AnnotationList objects can have metadata attributed to them.
 """

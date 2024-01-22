@@ -9,7 +9,7 @@ class Annotation(MMMAElement):
         attributes
         ----------
         - target : Corpus. The Corpus that the annotation targets.
-        - region : 
+        - region : Region. The region of the Corpus that the annotation covers.
         - props : dict. By default empty, can be populated with any number of user-given properties.
         - annotation_list : 
         """
