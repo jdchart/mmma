@@ -1,6 +1,6 @@
 import os
 from .mmma_element import MMMAElement
-from .handlers import get_video_handler, get_audio_handler
+from .handlers import get_video_handler, get_audio_handler, get_image_handler
 
 class Corpus(MMMAElement):
     def __init__(self, **kwargs) -> None:
@@ -53,10 +53,21 @@ class Corpus(MMMAElement):
         elif media_type == "Audio":
             return get_audio_handler(ext, self)
         elif media_type == "Image":
-            # return get_image_handler(ext, self)
-            return None
+            return get_image_handler(ext, self)
         elif media_type == "Document":
             # return get_document_handler(ext, self)
             return None
         else:
             return None
+        
+    def __getattr__(self, attr): 
+        """Update get method in order to access handler attributes directly."""
+
+        if attr not in self.__dict__ and self.handler != None:
+            if attr in self.handler.__dict__:
+                return getattr(self.handler, attr)
+            else:
+                print(f"Neither the Corpus nor its handler has the attribute \"{attr}\".")
+                return None
+        else:
+            return self.__getattr__(attr) 
