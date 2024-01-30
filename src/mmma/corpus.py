@@ -43,6 +43,10 @@ class Corpus(MMMAElement):
         new_annotation = Annotation(target = self, region = Region(**kwargs.get("region", None)), props = kwargs.get("props", None))
         new_annotation.region.target = new_annotation
         return new_annotation
+    
+    def to_np(self, **kwargs):
+        """Serve the associated media file as a numpy array."""
+        return self.handler.to_np(**kwargs)
 
     def to_dict(self) -> dict:
         """Represent the corpus as a dict."""

@@ -20,13 +20,23 @@
             - [x] When updating a corpus's region, need to update corpus handler attributes
         - [ ] Render
     - [ ] Handlers
-        - [ ] Get corpus from region
+        - [ ] Serve media
+            - [ ] Audio
+            - [ ] Video
+            - [ ] Image
+        - [ ] Attributes
+            - [ ] Video bit depth
+            - [ ] Image bit depth
+            - [ ] Image channels
+            - [ ] Video channels
+        - [ ] Get corpus from region (as regioned corpus and as new file)
             - [ ] Audio -> audio
             - [ ] Video -> Video
             - [ ] Video -> audio
             - [ ] Video -> image
             - [ ] Image -> image
-        - [ ] Audio to mono routine
+        - [ ] Audio to mono routine.
+        - [ ] Video to greyscale routine.
 - [ ] Examples
     - [ ] Reading and writing
     - [ ] Analysis workflow (vosk example)
@@ -44,6 +54,8 @@
 
 ## Various
 - [ ] Add support for "document" file types.
+- [ ] Supress output of ffmpeg
+- [ ] For videos, allow for choosing between frames and framerate to correspond to video or audio
 - [ ] Decompose audio frames.
 - [ ] Investigate the need for Annotations that would target other things than a Corpus.
 - [ ] Better metadata system (reading from a data file etc.)

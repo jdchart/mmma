@@ -19,4 +19,3 @@ image_file = mmma.Corpus(render_path = image_files[0])
 
 # Create an annotation of the video file of one second:
 video_annotation = video_file.add_annotation(region = {"start" : 1000, "end" : 2000})
-

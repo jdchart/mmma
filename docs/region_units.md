@@ -3,6 +3,9 @@ There is no inherent unit for the attributes of the `Region()` class - for examp
 Similarly, `x`, `y`, `width` or `height` could be in pixels, cm or km, `path` could be a list of pixel coordinates, or a list of real world coordinates.
 Each region has a set of attributes that you can set, and a `time_unit` and `space_unit` attribute that sets the unit.
 
+## Video time units.
+Note that when referencing the frames for a video file, this will correspond to the video frames, not the audio frames!
+
 ## Region attributes
 - `start`: the beginning of a span of time.
 - `end`: the end of a span of time.

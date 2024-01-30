@@ -1,5 +1,6 @@
 import cv2
 from .utils import update_space_from_region
+import imageio.v3 as iio
 
 class ImageHandler:
     def __init__(self, corpus) -> None:
@@ -25,6 +26,10 @@ class ImageHandler:
         self._full_dimensions = {"width" : int(openCVimg.shape[1]), "height" : int(openCVimg.shape[0])}
 
         update_space_from_region(self)
+
+    def to_np(self):
+        """Serve the associated image file as a numpy array."""
+        return iio.imread(self.corpus.render_path) # This should also work with urls.
 
 class PNGHandler(ImageHandler):
     def __init__(self, corpus) -> None:

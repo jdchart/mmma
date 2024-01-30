@@ -11,7 +11,26 @@ MMMA offers a format-agnostic environment for multimodal media analysis. Not to 
 Consult the [docs](/docs/) for the project [roadmap](/docs/roadmap.md), guides for [contributing](/docs/contributing.md) etc.
 
 ## Installation
-Coming soon...
+We will be adding the package to the pip package manager soon.
+
+### Installing as a git submodule
+
+For the moment, you can clone this repo as a git submodule in your project folder.
+
+For this, we first recommend setting up a virtual environment by running `virtualenv venv`.
+
+Once your virtual environment is up and running, you can clone the repo as a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+
+You cna then run the following commands to install the package in your virtual environment:
+
+```bash
+git submodule foreach git pull
+pip install mmma/src/
+```
+
+### Installing ffmpeg
+
+You will also need to install ffmpeg on your machine by running `brew install ffmpeg` with homebrew on mac. Look [here](https://phoenixnap.com/kb/ffmpeg-windows) for installing on windows.
 
 ## Basic usage
 
