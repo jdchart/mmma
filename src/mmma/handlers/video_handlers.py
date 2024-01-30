@@ -87,8 +87,11 @@ class VideoHandler:
             if os.path.isdir(os.path.dirname(temp_audio_path)) == False:
                 os.makedirs(os.path.dirname(temp_audio_path))
             self.extract_audio(temp_audio_path)
-            rate, audio_data = scipy.io.wavfile.read(temp_audio_path)
-            shutil.rmtree(os.path.dirname(temp_audio_path)) 
+            if os.path.isfile(temp_audio_path):
+                rate, audio_data = scipy.io.wavfile.read(temp_audio_path)
+                shutil.rmtree(os.path.dirname(temp_audio_path))
+            else:
+                audio_data = np.array([])
         
         if kwargs.get("video", True) and kwargs.get("audio", False) == False:
             return buffer
