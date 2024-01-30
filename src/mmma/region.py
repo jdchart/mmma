@@ -8,6 +8,9 @@ class Region:
         Therefore, when you set one of these values, you must give the unit following a set of standards (please consult the docs for these).
         """
 
+        self.time_unit = kwargs.get("time_unit", "ms")
+        self.space_unit = kwargs.get("space_unit", "px")
+
         self.start = kwargs.get("start", None)
         self.end = kwargs.get("end", None)
         self.x = kwargs.get("x", None)
@@ -16,3 +19,17 @@ class Region:
         self.height = kwargs.get("height", None)
         self.path = kwargs.get("path", None)
         self.props = kwargs.get("props", None)
+
+    def to_dict(self) -> dict:
+        """Represent the dict as a dict."""
+        ret = {}
+        for attr in self.__dict__:
+            if attr in ["start", "end", "props"] and attr not in ["time_unit", "space_unit"]:
+                if getattr(self, attr) != None:
+                    ret[attr] = getattr(self, attr)
+                    ret["time_unit"] = self.time_unit
+            if attr in ["x", "y", "props", "width", "height", "path"] and attr not in ["time_unit", "space_unit"]:
+                if getattr(self, attr) != None:
+                    ret[attr] = getattr(self, attr)
+                    ret["space_unit"] = self.space_unit
+        return ret

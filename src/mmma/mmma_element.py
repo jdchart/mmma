@@ -31,6 +31,14 @@ class MMMAElement:
                 pickle.dump(self, write_file, pickle.HIGHEST_PROTOCOL)
         else:
             print(f"Unable to write to path \"{path}\". Must have the \".pkl\" extension.")
+    
+    def to_dict(self):
+        """Represent the mmma element as a dict."""
+        ret = {"uuid" : self.uuid}
+        if self.mmma_type != None:
+            ret["mmma_type"] = self.mmma_type
+        ret["metadata"] = self.metadata.to_dict()
+        return ret
 
     def set_metadata(self, attribute_name : str, value):
         """Set the attribute of the element's metadata object."""

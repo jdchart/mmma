@@ -2,6 +2,14 @@ class Metadata:
     def __init__(self) -> None:
         pass
 
+    def to_dict(self) -> None:
+        """Represent the metadata as a dict."""
+        ret = {}
+        for attr in self.__dict__:
+            if getattr(self, attr) != None:
+                ret[attr] = getattr(self, attr)
+        return ret
+
 def get_metadata_system(system_name : str):
     """Return a metadata object according to input."""
 

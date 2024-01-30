@@ -36,6 +36,17 @@ class Corpus(MMMAElement):
         new_annotation = Annotation(target = self, region = Region(**kwargs.get("region", None)), props = kwargs.get("props", None))
         return new_annotation
 
+    def to_dict(self) -> dict:
+        """Represent the corpus as a dict."""
+        ret = super().to_dict()
+        if self.render_path != None:
+            ret["render_path"] = self.render_path
+        if self.render_type != None:
+            ret["render_type"] = self.render_type
+        if self.render_ext != None:
+            ret["render_ext"] = self.render_ext
+        return ret
+
     def _get_type(self, path : str):
         """Determine the media file's type."""
 

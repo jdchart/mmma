@@ -21,3 +21,13 @@ class Annotation(MMMAElement):
         self.target = kwargs.get("target", None)
         self.region = kwargs.get("region", None)
         self.props = kwargs.get("props", {})
+    
+    def to_dict(self) -> dict:
+        """Represent the annotation as a dict."""
+        ret = super().to_dict()
+        ret["props"] = self.props
+        if self.target != None:
+            ret["target"] = self.target.to_dict()
+        if self.region != None:
+            ret["region"] = self.region.to_dict()
+        return ret

@@ -10,20 +10,30 @@ class AnnotationList(MMMAElement):
         super().__init__(mmma_type = "AnnotationList")
 
         # AnnotationList attributes:
-        self.array = None
+        self._array = None
         self._array_empty = True
 
-    def append_slice(self, annotation : Annotation) -> None:
+    def append_annotation(self, annotation : Annotation) -> None:
         """Add a new annotation to the annotation list."""
 
         if self._array_empty:
-            self.array = np.array([annotation])
+            self._array = np.array([annotation])
             self._array_empty = False
         else:
-            self.array = np.append(self.array, annotation)
+            self._array = np.append(self._array, annotation)
 
     def clear(self) -> None:
         """Clear the array and reset the object."""
 
-        self.array = None
+        self._array = None
         self._array_empty = True
+
+    def to_dict(self) -> dict:
+        """Represpent the contents of the annotation list as a dict."""
+        if self._array_empty == False:
+            ret = {"annotations" : []}
+            for annotation in self._array:
+                ret["annotations"].append(annotation.to_dict())
+            return ret
+        else:
+            return {}
