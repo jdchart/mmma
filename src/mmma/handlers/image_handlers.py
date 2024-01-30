@@ -1,4 +1,5 @@
 import cv2
+from .utils import update_space_from_region
 
 class ImageHandler:
     def __init__(self, corpus) -> None:
@@ -14,13 +15,16 @@ class ImageHandler:
         self.corpus = corpus
         
         # Image attributes:
+        self._full_dimensions = None
         self.dimensions = None
 
     def decode(self):
         """Get basic info about media file."""
 
         openCVimg = cv2.imread(self.corpus.render_path, cv2.IMREAD_UNCHANGED)
-        self.dimensions = {"width" : int(openCVimg.shape[1]), "height" : int(openCVimg.shape[0])}
+        self._full_dimensions = {"width" : int(openCVimg.shape[1]), "height" : int(openCVimg.shape[0])}
+
+        update_space_from_region(self)
 
 class PNGHandler(ImageHandler):
     def __init__(self, corpus) -> None:

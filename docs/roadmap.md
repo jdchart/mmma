@@ -15,6 +15,10 @@
         - [ ] Filtering
         - [ ] Reordering
         - [ ] Pretty printing
+    - [ ] Corpus
+        - [x] Corpora can have regions
+            - [x] When updating a corpus's region, need to update corpus handler attributes
+        - [ ] Render
     - [ ] Handlers
         - [ ] Get corpus from region
             - [ ] Audio -> audio
@@ -22,6 +26,7 @@
             - [ ] Video -> audio
             - [ ] Video -> image
             - [ ] Image -> image
+        - [ ] Audio to mono routine
 - [ ] Examples
     - [ ] Reading and writing
     - [ ] Analysis workflow (vosk example)
@@ -39,9 +44,11 @@
 
 ## Various
 - [ ] Add support for "document" file types.
+- [ ] Decompose audio frames.
 - [ ] Investigate the need for Annotations that would target other things than a Corpus.
 - [ ] Better metadata system (reading from a data file etc.)
 - [ ] Investigate layer regions
+- [ ] Space decomposition for cms
 - [ ] Add functionality for a handler to target a region of the associated media file (?).
 - [ ] Add support of media stocked online (corpora with a url render_path).
 - [ ] Add routine for installing flucoma binaries.

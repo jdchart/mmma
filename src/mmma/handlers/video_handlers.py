@@ -1,4 +1,5 @@
 import cv2
+from .utils import update_time_from_region, update_space_from_region
 
 class VideoHandler:
     def __init__(self, corpus) -> None:
@@ -17,8 +18,11 @@ class VideoHandler:
         self.corpus = corpus
         
         # Video attributes:
+        self._full_dimensions = None
         self.dimensions = None
+        self._full_duration_ms = None
         self.duration_ms = None
+        self._full_frames = None
         self.frames = None
         self.frame_rate = None
 
@@ -26,10 +30,13 @@ class VideoHandler:
         """Get basic info about media file."""
 
         cap = cv2.VideoCapture(self.corpus.render_path)
-        self.dimensions = {"width" : int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), "height" : int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))}
-        self.frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        self._full_dimensions = {"width" : int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), "height" : int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))}
+        self._full_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         self.frame_rate = cap.get(cv2.CAP_PROP_FPS)
-        self.duration_ms = (self.frames / self.frame_rate) * 1000
+        self._full_duration_ms = (self._full_frames / self.frame_rate) * 1000
+
+        update_space_from_region(self)
+        update_time_from_region(self)
 
 class MP4Handler(VideoHandler):
     def __init__(self, corpus) -> None:

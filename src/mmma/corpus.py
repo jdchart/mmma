@@ -15,6 +15,7 @@ class Corpus(MMMAElement):
         - render_type : str. The type of an associated media file ('Audio', 'Video' etc.).
         - render_ext : str. The extension of an associated media file ('mp4', 'jpg' etc.).
         - handler : Handler(). The handler object for the associated media file (depends on the file format, for example MP4Handler(), WAVHandler() etc.).
+        - region : Region(). Associate a region with the corpus.
         """
 
         # Initialize MMMAElement class with corpus mmma_type:
@@ -23,6 +24,12 @@ class Corpus(MMMAElement):
         # If associated with a media file, get the path, type and extension:
         self.render_path = kwargs.get('render_path', None)
         self.render_type, self.render_ext = self._get_type(self.render_path)
+        
+        # Set a region for the object:
+        if "region" in kwargs:
+            self.region = Region(target = self, **kwargs.get("region"))
+        else:
+            self.region = Region(target = self)
 
         if self.render_path != None:
             # Set the cropus's handler:
@@ -34,11 +41,13 @@ class Corpus(MMMAElement):
     def add_annotation(self, **kwargs):
         """Create a new annotation object that targets the Corpus."""
         new_annotation = Annotation(target = self, region = Region(**kwargs.get("region", None)), props = kwargs.get("props", None))
+        new_annotation.region.target = new_annotation
         return new_annotation
 
     def to_dict(self) -> dict:
         """Represent the corpus as a dict."""
         ret = super().to_dict()
+        ret["region"] = self.region.to_dict()
         if self.render_path != None:
             ret["render_path"] = self.render_path
         if self.render_type != None:
@@ -81,7 +90,7 @@ class Corpus(MMMAElement):
     def __getattr__(self, attr): 
         """Update get method in order to access handler attributes directly."""
 
-        if attr not in self.__dict__ and self.handler != None:
+        if attr not in self.__dict__ and self.handler and self.region != None:
             if attr in self.handler.__dict__:
                 return getattr(self.handler, attr)
             else:
