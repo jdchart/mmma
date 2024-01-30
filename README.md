@@ -3,11 +3,15 @@ _MultiModal Media Analysis_
 
 MMMA offers a format-agnostic environment for multimodal media analysis. Not to be confused with [MMA](https://en.wikipedia.org/wiki/Mixed_martial_arts).
 
-1. [Basic usage](#basic-usage)
-2. [Theoretical premise](#theoretical-premise)
-3. [Technical premise](#technical-premise)
+1. [Installation](#installation)
+2. [Basic usage](#basic-usage)
+3. [Theoretical premise](#theoretical-premise)
+4. [Technical premise](#technical-premise)
 
 Consult the [docs](/docs/) for the project [roadmap](/docs/roadmap.md), guides for [contributing](/docs/contributing.md) etc.
+
+## Installation
+Coming soon...
 
 ## Basic usage
 
@@ -74,6 +78,8 @@ This means that, whether the user is using a _.wav_ or _/mp3_ file, the user wil
 
 ### Annotations and annotation lists
 Coming soon...
+annotaitons are seperate things, but have a target (get target from annotation but not vice versa)
+annotation lists are not attached to anything (can have multiple targets)
 
 ### Analysis
 Coming soon...

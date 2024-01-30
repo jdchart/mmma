@@ -8,8 +8,10 @@ Each region has a set of attributes that you can set, and a `time_unit` and `spa
 - `end`: the end of a span of time.
 - `x`: the x coordinate of the top left of a rectangular space, or the x coordinate of a point.
 - `y`: the y coordinate of the top left of a rectangular space, or the y coordinate of a point.
+- `z`: the z coordinate of the top left of a rectangular space, or the z coordinate of a point.
 - `width`: the width of a space.
 - `height`: the height of a space.
+- `depth`: the height of a space.
 - `path`: a list of point coordinates that would draw non-rectangular limits of the region.
 - `props` : ad hoc region definitions.
 
@@ -20,7 +22,7 @@ Each region has a set of attributes that you can set, and a `time_unit` and `spa
 - `"date"` : date. Expected type: datetime.datetime. Attributes: `start`, `end`.
 
 ## Space units (default: "px"):
-- `"space"` : unspecified space unit. Expected type: float. Attributes: `x`, `y`, `width`, `height`, `path`.
-- `"px"` : pixels. Expected type: int. Attributes: `x`, `y`, `width`, `height`, `path`.
-- `"cm"` : pixels. Expected type: float. Attributes: `x`, `y`, `width`, `height`.
-- `"co"` : coordinates. Expected type: float. Attributes: `x`, `y`, `width`, `height`, `path`.
+- `"space"` : unspecified space unit. Expected type: float. Attributes: `x`, `y`, `z`, `width`, `height`, `depth`, `path`.
+- `"px"` : pixels. Expected type: int. Attributes: `x`, `y`, `z`, `width`, `height`, `depth`, `path`.
+- `"cm"` : pixels. Expected type: float. Attributes: `x`, `y`, `z`, `width`, `height` `depth`.
+- `"co"` : coordinates. Expected type: float. Attributes: `x`, `y`, `z`, `width`, `height`, `depth`, `path`.

@@ -1,3 +1,5 @@
+**! This may be outdated !**
+
 # Adding media formats
 
 You can contribute by adding a new media type to the MMMA ecosystem. To do this, you will need to assure that a certain number of requirements have been met.

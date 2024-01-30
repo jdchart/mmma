@@ -1,5 +1,35 @@
 # Roadmap
 
+## Version 0.1:
+- [ ] Update docs
+    - [ ] Usage examples for readme
+    - [ ] Installation
+    - [ ] Annotations and annotation lists
+    - [ ] Analysis
+    - [ ] List the minimum requirements for handlers
+- [ ] Functionality
+    - [ ] requirements.txt
+    - [ ] AnnotationList:
+        - [ ] Remove annotation
+        - [ ] Inserting
+        - [ ] Filtering
+        - [ ] Reordering
+        - [ ] Pretty printing
+    - [ ] Handlers
+        - [ ] Get corpus from region
+            - [ ] Audio -> audio
+            - [ ] Video -> Video
+            - [ ] Video -> audio
+            - [ ] Video -> image
+            - [ ] Image -> image
+- [ ] Examples
+    - [ ] Reading and writing
+    - [ ] Analysis workflow (vosk example)
+        - [ ] From video, get audio
+        - [ ] Perfom analysis on audio
+        - [ ] Create annotation list of words detected
+        - [ ] MFCC of each slice.
+
 ## Supported media types
 - [x] Image
 - [x] Video

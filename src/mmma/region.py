@@ -15,8 +15,10 @@ class Region:
         self.end = kwargs.get("end", None)
         self.x = kwargs.get("x", None)
         self.y = kwargs.get("y", None)
+        self.z = kwargs.get("z", None)
         self.width = kwargs.get("width", None)
         self.height = kwargs.get("height", None)
+        self.depth = kwargs.get("depth", None)
         self.path = kwargs.get("path", None)
         self.props = kwargs.get("props", None)
 
@@ -28,7 +30,7 @@ class Region:
                 if getattr(self, attr) != None:
                     ret[attr] = getattr(self, attr)
                     ret["time_unit"] = self.time_unit
-            if attr in ["x", "y", "props", "width", "height", "path"] and attr not in ["time_unit", "space_unit"]:
+            if attr in ["x", "y", "props", "width", "height", "path", "z", "depth"] and attr not in ["time_unit", "space_unit"]:
                 if getattr(self, attr) != None:
                     ret[attr] = getattr(self, attr)
                     ret["space_unit"] = self.space_unit

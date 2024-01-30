@@ -1,3 +1,5 @@
+**! This may be outdated !**
+
 # Media types and handlers
 
 With MMMA, the idea is that the user can handle many different types of media, and the various formats within which they are encoded in one standardized way. For example, the process for obtaining the dimensions of a video file, or obtaining a frame from a video can vary depening on the format (mp4 or mov). With MMMA, the user will use a same set of commands for treating different formats. Additionally, when this can be applied, same commands will be used to handle media of different types - for example getting the length of a video or audio file. MMMA proposes a system for maintaing different file formats with **handlers**.
