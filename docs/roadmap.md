@@ -3,7 +3,7 @@
 ## Version 0.1:
 - [ ] Update docs
     - [ ] Usage examples for readme
-    - [ ] Installation
+    - [x] Installation
     - [ ] Annotations and annotation lists
     - [ ] Analysis
     - [ ] List the minimum requirements for handlers

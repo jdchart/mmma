@@ -46,7 +46,7 @@ class Corpus(MMMAElement):
     
     def to_np(self, **kwargs):
         """Serve the associated media file as a numpy array."""
-        return self.handler.to_np(**kwargs)
+        return self.handler.to_np(self.region, **kwargs)
 
     def to_dict(self) -> dict:
         """Represent the corpus as a dict."""

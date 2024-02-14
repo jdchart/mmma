@@ -4,7 +4,7 @@ import scipy
 import shutil
 import subprocess
 import numpy as np
-from .utils import update_time_from_region, update_space_from_region
+from .utils import update_time_from_region, update_space_from_region, decode_region
 
 class VideoHandler:
     def __init__(self, corpus) -> None:
@@ -67,7 +67,7 @@ class VideoHandler:
         cap.release()
         return fc
 
-    def to_np(self, **kwargs):
+    def to_np(self, region, **kwargs):
         """Serve the associated media file as a numpy array."""
         if kwargs.get("video", True):
             cap = cv2.VideoCapture(self.corpus.render_path)
@@ -92,6 +92,8 @@ class VideoHandler:
                 shutil.rmtree(os.path.dirname(temp_audio_path))
             else:
                 audio_data = np.array([])
+
+        region_decode = decode_region(region, self.corpus)
         
         if kwargs.get("video", True) and kwargs.get("audio", False) == False:
             return buffer

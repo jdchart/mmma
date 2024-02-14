@@ -1,7 +1,7 @@
 import audiofile
 import numpy as np
 import scipy
-from .utils import update_time_from_region
+from .utils import update_time_from_region, decode_region
 
 class AudioHandler:
     def __init__(self, corpus) -> None:
@@ -44,12 +44,18 @@ class WAVHandler(AudioHandler):
     def __init__(self, corpus) -> None:
         super().__init__(corpus)
 
-    def to_np(self) -> np.array:
+    def to_np(self, region) -> np.array:
         """Serve the wav file as a numpy array."""
         
         rate, data = scipy.io.wavfile.read(self.corpus.render_path)
-        return data
-
+        
+        region_decode = decode_region(region, self.corpus)
+        if region_decode["start"] == -1:
+            region_decode["start"] = 0
+        if region_decode["end"] == -1:
+            region_decode["end"] = self.frames
+        
+        return data[region_decode["start"]:region_decode["end"]]
 
 def get_audio_handler(ext : str, corpus) -> AudioHandler:
     """Get the handler corresponding to file format."""

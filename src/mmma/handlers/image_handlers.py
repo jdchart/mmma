@@ -1,5 +1,6 @@
 import cv2
-from .utils import update_space_from_region
+from .utils import update_space_from_region, decode_region
+import numpy as np
 import imageio.v3 as iio
 
 class ImageHandler:
@@ -27,9 +28,24 @@ class ImageHandler:
 
         update_space_from_region(self)
 
-    def to_np(self):
+    def to_np(self, region):
         """Serve the associated image file as a numpy array."""
-        return iio.imread(self.corpus.render_path) # This should also work with urls.
+
+        image = cv2.imread(self.corpus.render_path)
+        data = np.array(image)
+
+        region_decode = decode_region(region, self.corpus)
+
+        if region_decode["x"] == -1:
+            region_decode["x"] = 0
+        if region_decode["y"] == -1:
+            region_decode["y"] = 0
+        if region_decode["width"] == -1:
+            region_decode["width"] = self.dimensions["width"]
+        if region_decode["height"] == -1:
+            region_decode["height"] = self.dimensions["height"]
+
+        return data[region_decode["y"]:region_decode["y"] + region_decode["height"], region_decode["x"]:region_decode["x"] + region_decode["width"]]
 
 class PNGHandler(ImageHandler):
     def __init__(self, corpus) -> None:
