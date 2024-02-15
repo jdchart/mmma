@@ -4,7 +4,7 @@ import scipy
 import shutil
 import subprocess
 import numpy as np
-from .utils import update_time_from_region, update_space_from_region, decode_region
+from .utils import update_time_from_region, update_space_from_region, decode_region, frame_rate_convert
 
 class VideoHandler:
     def __init__(self, corpus) -> None:
@@ -88,19 +88,38 @@ class VideoHandler:
                 os.makedirs(os.path.dirname(temp_audio_path))
             self.extract_audio(temp_audio_path)
             if os.path.isfile(temp_audio_path):
-                rate, audio_data = scipy.io.wavfile.read(temp_audio_path)
+                audio_rate, audio_data = scipy.io.wavfile.read(temp_audio_path)
                 shutil.rmtree(os.path.dirname(temp_audio_path))
             else:
                 audio_data = np.array([])
-
-        region_decode = decode_region(region, self.corpus)
         
+        region_decode = decode_region(region, self.corpus)
+        if region_decode["start"] == -1:
+            region_decode["start"] = 0
+        if region_decode["end"] == -1:
+            region_decode["end"] = self._full_frames
+        if region_decode["x"] == -1:
+            region_decode["x"] = 0
+        if region_decode["y"] == -1:
+            region_decode["y"] = 0
+        if region_decode["width"] == -1:
+            region_decode["width"] = self.dimensions["width"]
+        if region_decode["height"] == -1:
+            region_decode["height"] = self.dimensions["height"]
+        
+        if kwargs.get("audio", False):
+            start_audio = frame_rate_convert(region_decode["start"], self.frame_rate, audio_rate)
+            end_audio = frame_rate_convert(region_decode["end"], self.frame_rate, audio_rate)
+
+        video_trim = buffer[region_decode["start"]:region_decode["end"], :, :, :]
+        roi_trim = video_trim[:, region_decode["y"]:region_decode["y"]+region_decode["height"], region_decode["x"]:region_decode["x"]+region_decode["width"], :]
+
         if kwargs.get("video", True) and kwargs.get("audio", False) == False:
-            return buffer
+            return roi_trim
         elif kwargs.get("video", True) == False and kwargs.get("audio", False):
-            return audio_data
+            return audio_data[start_audio:end_audio]
         elif kwargs.get("video", True) and kwargs.get("audio", False):
-            return buffer, audio_data
+            return roi_trim, audio_data[start_audio:end_audio]
         
     def extract_audio(self, dest : str):
         """Extract the audio from the video file as a wav file."""

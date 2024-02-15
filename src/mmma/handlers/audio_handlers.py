@@ -53,7 +53,7 @@ class WAVHandler(AudioHandler):
         if region_decode["start"] == -1:
             region_decode["start"] = 0
         if region_decode["end"] == -1:
-            region_decode["end"] = self.frames
+            region_decode["end"] = self._full_frames
         
         return data[region_decode["start"]:region_decode["end"]]
 

@@ -3,6 +3,10 @@ import numpy as np
 def ms_to_frames(ms, frame_rate):
     return int((frame_rate * ms) / 1000)
 
+def frame_rate_convert(original_frames, original_fr, new_fr):
+    """Take a value in a given frame rate, and convert to a new frame rate."""
+    return int((original_frames * new_fr) / original_fr)
+
 def frames_to_ms(frames, frame_rate):
     return (frames * 1000) / frame_rate
 

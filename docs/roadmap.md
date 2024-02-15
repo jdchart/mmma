@@ -20,10 +20,10 @@
             - [x] When updating a corpus's region, need to update corpus handler attributes
         - [ ] Render
     - [ ] Handlers
-        - [ ] Serve media
-            - [ ] Audio
-            - [ ] Video
-            - [ ] Image
+        - [x] Serve media
+            - [x] Audio
+            - [x] Video
+            - [x] Image
         - [ ] Attributes
             - [ ] Video bit depth
             - [ ] Image bit depth
