@@ -15,6 +15,7 @@
         - [ ] Filtering
         - [ ] Reordering
         - [ ] Pretty printing
+        - [ ] Annotation lists as numpy arrays ? (for handling descriptor data, feature analyses etc. Also see how that effects windowing - but that may be another annotation list that is derived...)
     - [ ] Corpus
         - [x] Corpora can have regions
             - [x] When updating a corpus's region, need to update corpus handler attributes
