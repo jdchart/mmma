@@ -30,6 +30,8 @@ class AudioHandler:
         self.frame_rate = None
         self.bit_depth = None
 
+        self.media_type = "Audio"
+
     def decode(self):
         """Get basic info about media file."""
 

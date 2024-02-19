@@ -32,6 +32,8 @@ class VideoHandler:
         self.frames = None
         self.frame_rate = None
 
+        self.media_type = "Video"
+
     def decode(self):
         """Get basic info about media file."""
 

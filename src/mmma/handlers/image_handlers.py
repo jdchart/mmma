@@ -21,6 +21,8 @@ class ImageHandler:
         self._full_dimensions = None
         self.dimensions = None
 
+        self.media_type = "Image"
+
     def decode(self):
         """Get basic info about media file."""
 
