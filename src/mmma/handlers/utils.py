@@ -1,4 +1,12 @@
 import numpy as np
+import cv2
+
+def write_video(data, path, fr, w, h):
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(path, fourcc, fr, (w, h))
+    for frame_array in data:
+        out.write(frame_array)
+    out.release()
 
 def ms_to_frames(ms, frame_rate):
     return int((frame_rate * ms) / 1000)

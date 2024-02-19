@@ -16,10 +16,12 @@
         - [ ] Reordering
         - [ ] Pretty printing
         - [ ] Annotation lists as numpy arrays ? (for handling descriptor data, feature analyses etc. Also see how that effects windowing - but that may be another annotation list that is derived...)
+            - [ ] Perhaps solved because the prop of an nnotation can be anything (so also a numpy array).
     - [ ] Corpus
         - [x] Corpora can have regions
             - [x] When updating a corpus's region, need to update corpus handler attributes
-        - [ ] Render
+        - [x] Render from corpus
+        - [ ] Render from annotations
     - [ ] Handlers
         - [x] Serve media
             - [x] Audio
@@ -54,6 +56,7 @@
 - [ ] 3D
 
 ## Various
+- [ ] Optimize video reading, numpy serving and rendering.
 - [ ] Add support for "document" file types.
 - [ ] Supress output of ffmpeg
 - [ ] For videos, allow for choosing between frames and framerate to correspond to video or audio

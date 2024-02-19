@@ -47,6 +47,28 @@ class Corpus(MMMAElement):
     def to_np(self, **kwargs):
         """Serve the associated media file as a numpy array."""
         return self.handler.to_np(self.region, **kwargs)
+    
+    def render(self, path, **kwargs):
+        """Render the corpus to a new media file from it's region. Will return a new corpus."""
+ 
+        if "video" in kwargs or "audio" in kwargs:
+            if kwargs.get("video", True) and kwargs.get("audio", False) == False:
+                data = self.to_np(**kwargs)
+            elif kwargs.get("video", True) == False and kwargs.get("audio", False):
+                aud, ar = self.to_np(**kwargs)
+                data = {"audio" : aud, "audio_rate" : ar}
+            elif kwargs.get("video", True) and kwargs.get("audio", False):
+                vid, aud, ar = self.to_np(**kwargs)
+                data = {"audio" : aud, "video" : vid, "audio_rate" : ar}
+        else:
+            data = self.to_np(**kwargs)
+
+        rendered = self.handler.render(data, path)
+        if rendered != None:
+            new_corpus = Corpus(render_path = rendered)
+            return new_corpus
+        else:
+            return None
 
     def to_dict(self) -> dict:
         """Represent the corpus as a dict."""

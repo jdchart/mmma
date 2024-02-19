@@ -5,3 +5,4 @@ test-corpora/
 examples/__pycache__/
 .DS_Store
 notes/
+output/

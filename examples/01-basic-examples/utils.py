@@ -14,3 +14,8 @@ def collect_files(path, accepted_formats = [], recursive = True):
             if extension in accepted_formats or len(accepted_formats) == 0:
                 finalList.append(os.path.join(root, file))
     return finalList
+
+def create_output_folder():
+    if os.path.isdir(os.path.join(os.getcwd(), "output")) == False:
+        os.makedirs(os.path.join(os.getcwd(), "output"))
+    return os.path.join(os.getcwd(), "output")

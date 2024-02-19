@@ -4,7 +4,8 @@ import scipy
 import shutil
 import subprocess
 import numpy as np
-from .utils import update_time_from_region, update_space_from_region, decode_region, frame_rate_convert
+from moviepy.editor import VideoFileClip, AudioFileClip
+from .utils import update_time_from_region, update_space_from_region, decode_region, frame_rate_convert, write_video
 
 class VideoHandler:
     def __init__(self, corpus) -> None:
@@ -69,6 +70,8 @@ class VideoHandler:
 
     def to_np(self, region, **kwargs):
         """Serve the associated media file as a numpy array."""
+        
+        # TODO : This can be optimised by just doing the region:
         if kwargs.get("video", True):
             cap = cv2.VideoCapture(self.corpus.render_path)
 
@@ -81,6 +84,7 @@ class VideoHandler:
                 fc = fc + 1
 
             cap.release()
+
         if kwargs.get("audio", False):
             # TODO : There must surely be a way to do this without creating a temporary file...
             temp_audio_path = os.path.join(os.getcwd(), "temp", "temp_audio_out.wav")
@@ -111,15 +115,67 @@ class VideoHandler:
             start_audio = frame_rate_convert(region_decode["start"], self.frame_rate, audio_rate)
             end_audio = frame_rate_convert(region_decode["end"], self.frame_rate, audio_rate)
 
-        video_trim = buffer[region_decode["start"]:region_decode["end"], :, :, :]
-        roi_trim = video_trim[:, region_decode["y"]:region_decode["y"]+region_decode["height"], region_decode["x"]:region_decode["x"]+region_decode["width"], :]
+        if kwargs.get("video", True):
+            video_trim = buffer[region_decode["start"]:region_decode["end"], :, :, :]
+            roi_trim = video_trim[:, region_decode["y"]:region_decode["y"]+region_decode["height"], region_decode["x"]:region_decode["x"]+region_decode["width"], :]
 
         if kwargs.get("video", True) and kwargs.get("audio", False) == False:
             return roi_trim
         elif kwargs.get("video", True) == False and kwargs.get("audio", False):
-            return audio_data[start_audio:end_audio]
+            return audio_data[start_audio:end_audio], audio_rate
         elif kwargs.get("video", True) and kwargs.get("audio", False):
-            return roi_trim, audio_data[start_audio:end_audio]
+            return roi_trim, audio_data[start_audio:end_audio], audio_rate
+        
+    def render(self, data, path):
+        """Render the video file to a new mp4 file at path, or a wav file."""
+
+        if os.path.splitext(path)[1] == ".mp4" or os.path.splitext(path)[1] == ".wav":
+            if isinstance(data, dict):
+                if "video" in data:
+                    # Both
+                    if os.path.splitext(path)[1] == ".mp4":
+                        temp_audio_path = os.path.join(os.getcwd(), "temp", "temp_audio_out.wav")
+                        temp_video_path = os.path.join(os.getcwd(), "temp", "temp_video_out.mp4")
+                        if os.path.isdir(os.path.dirname(temp_audio_path)) == False:
+                            os.makedirs(os.path.dirname(temp_audio_path))
+
+                        write_video(data["video"], temp_video_path, self.frame_rate, data["video"].shape[2], data["video"].shape[1])
+                        
+                        # Add audio
+                        scipy.io.wavfile.write(temp_audio_path, data["audio_rate"], data["audio"])
+
+                        video_clip = VideoFileClip(temp_video_path)
+                        audio_clip = AudioFileClip(temp_audio_path)
+                        video_clip = video_clip.set_audio(audio_clip)
+                        video_clip.write_videofile(path, codec="libx264", audio_codec="aac")
+
+                        video_clip.close()
+                        audio_clip.close()
+
+                        shutil.rmtree(os.path.dirname(temp_audio_path))
+                        return path
+                    else:
+                        print("Unable to render, must render to mp4 format.")
+                        return None
+                else:
+                    # Just audio
+                    if os.path.splitext(path)[1] == ".wav":
+                        scipy.io.wavfile.write(path, data["audio_rate"], data["audio"])
+                        return path
+                    else:
+                        print("Unable to render, must render to wav format.")
+                        return None
+            else:
+                # Just video:
+                if os.path.splitext(path)[1] == ".mp4":
+                    write_video(data, path, self.frame_rate, data.shape[2], data.shape[1])
+                    return path
+                else:
+                    print("Unable to render, must render to mp4 format.")
+                    return None
+        else:
+            print("Unable to render, must render to mp4 or wav format.")
+            return None
         
     def extract_audio(self, dest : str):
         """Extract the audio from the video file as a wav file."""

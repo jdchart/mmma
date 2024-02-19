@@ -1,6 +1,7 @@
 import cv2
 from .utils import update_space_from_region, decode_region
 import numpy as np
+import os
 import imageio.v3 as iio
 
 class ImageHandler:
@@ -46,6 +47,15 @@ class ImageHandler:
             region_decode["height"] = self.dimensions["height"]
 
         return data[region_decode["y"]:region_decode["y"] + region_decode["height"], region_decode["x"]:region_decode["x"] + region_decode["width"]]
+    
+    def render(self, data, path):
+        """Render the image file to a new png file at path."""
+        if os.path.splitext(path)[1] == ".png":
+            cv2.imwrite(path, data)
+            return path
+        else:
+            print("Unable to render, must render to png format.")
+            return None
 
 class PNGHandler(ImageHandler):
     def __init__(self, corpus) -> None:

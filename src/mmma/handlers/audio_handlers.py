@@ -1,6 +1,7 @@
 import audiofile
 import numpy as np
 import scipy
+import os
 from .utils import update_time_from_region, decode_region
 
 class AudioHandler:
@@ -39,6 +40,15 @@ class AudioHandler:
         self.bit_depth = audiofile.bit_depth(self.corpus.render_path)
 
         update_time_from_region(self)
+
+    def render(self, data, path):
+        """Render the audio file to a new wav file at path."""
+        if os.path.splitext(path)[1] == ".wav":
+            scipy.io.wavfile.write(path, self.frame_rate, data)
+            return path
+        else:
+            print("Unable to render, must render to wav format.")
+            return None
         
 class WAVHandler(AudioHandler):
     def __init__(self, corpus) -> None:
