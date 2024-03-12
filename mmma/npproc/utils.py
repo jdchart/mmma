@@ -27,9 +27,15 @@ def to_mono(np_array : np.array) -> np.array:
     """
     
     mono = np.mean(np_array, axis=1)
-    # Reshape to keep as a 2D array:
-    mono_2d = mono.reshape(-1, 1)
+    
+    clipped_mono = np.clip(mono, -1.0, 1.0)
+
+    mono_2d = clipped_mono.reshape(-1, 1)
     return mono_2d
+
+def normalize(np_array : np.array) -> np.array:
+    normalized = np_array / np.max(np.abs(np_array), axis=0)
+    return normalized
 
 def to_greyscale(np_array : np.array, method = 1) -> np.array:
     """
