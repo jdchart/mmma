@@ -6,3 +6,5 @@ examples/__pycache__/
 .DS_Store
 notes/
 output/
+build/
+mmma.egg-info
