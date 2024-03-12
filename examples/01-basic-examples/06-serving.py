@@ -20,7 +20,7 @@ image_file = mmma.Corpus(render_path = image_files[0], region = {"x" : 20, "y" :
 # Use the to_np() method to get the numpy array:
 np_array_audio = audio_file.to_np()
 np_array_image = image_file.to_np()
-np_array_video, np_array_video_audio = video_file.to_np(video = True, audio = True)
+np_array_video, np_array_video_audio, audio_rate = video_file.to_np(video = True, audio = True)
 
 print()
 print(f"Video (frames): {np_array_video.shape} ({np_array_video.dtype})")

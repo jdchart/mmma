@@ -51,17 +51,20 @@ class Corpus(MMMAElement):
     def render(self, path, **kwargs):
         """Render the corpus to a new media file from it's region. Will return a new corpus."""
  
-        if "video" in kwargs or "audio" in kwargs:
-            if kwargs.get("video", True) and kwargs.get("audio", False) == False:
+        if "np" not in kwargs:
+            if "video" in kwargs or "audio" in kwargs:
+                if kwargs.get("video", True) and kwargs.get("audio", False) == False:
+                    data = self.to_np(**kwargs)
+                elif kwargs.get("video", True) == False and kwargs.get("audio", False):
+                    aud, ar = self.to_np(**kwargs)
+                    data = {"audio" : aud, "audio_rate" : ar}
+                elif kwargs.get("video", True) and kwargs.get("audio", False):
+                    vid, aud, ar = self.to_np(**kwargs)
+                    data = {"audio" : aud, "video" : vid, "audio_rate" : ar}
+            else:
                 data = self.to_np(**kwargs)
-            elif kwargs.get("video", True) == False and kwargs.get("audio", False):
-                aud, ar = self.to_np(**kwargs)
-                data = {"audio" : aud, "audio_rate" : ar}
-            elif kwargs.get("video", True) and kwargs.get("audio", False):
-                vid, aud, ar = self.to_np(**kwargs)
-                data = {"audio" : aud, "video" : vid, "audio_rate" : ar}
         else:
-            data = self.to_np(**kwargs)
+            data = kwargs.get("np")
 
         rendered = self.handler.render(data, path)
         if rendered != None:
