@@ -28,9 +28,14 @@ def to_mono(np_array : np.array) -> np.array:
     
     mono = np.mean(np_array, axis=1)
     
-    clipped_mono = np.clip(mono, -1.0, 1.0)
+    #clipped_mono = np.clip(mono, -1.0, 1.0)
 
-    mono_2d = clipped_mono.reshape(-1, 1)
+    int16__scale = np.int16(np_array / np.max(np.abs(np_array)) * 32767)
+
+    mono_2d = int16__scale.reshape(-1, 1)
+
+
+
     return mono_2d
 
 def normalize(np_array : np.array) -> np.array:

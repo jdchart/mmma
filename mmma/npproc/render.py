@@ -7,8 +7,7 @@ from moviepy.editor import VideoFileClip, AudioFileClip
 
 def to_wav(path, np_array, sr):
     if os.path.splitext(path)[1] == ".wav":
-        int16__scale = np.int16(np_array / np.max(np.abs(np_array)) * 32767)
-        scipy.io.wavfile.write(path, sr, int16__scale)
+        scipy.io.wavfile.write(path, sr, np_array)
         return path
     else:
         print("Unable to render, must render to wav format.")
