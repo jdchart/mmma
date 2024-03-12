@@ -26,11 +26,14 @@ def to_mono(np_array : np.array) -> np.array:
     This can be used to convert multichannel audio to mono, or colour images to greyscale.
     """
     
+    # if np_array.ndims == 1:
+    #     mono = np_array
+
     mono = np.mean(np_array, axis=1)
     
     #clipped_mono = np.clip(mono, -1.0, 1.0)
 
-    int16__scale = np.int16(np_array / np.max(np.abs(np_array)) * 32767)
+    int16__scale = np.int16(mono / np.max(np.abs(mono)) * 32767)
 
     mono_2d = int16__scale.reshape(-1, 1)
 
