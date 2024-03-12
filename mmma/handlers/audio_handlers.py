@@ -67,7 +67,7 @@ class WAVHandler(AudioHandler):
         if region_decode["end"] == -1:
             region_decode["end"] = self._full_frames
 
-        if len(data) == 1:
+        if data.ndim == 1:
             data = data.reshape(-1, 1)
         
         return data[region_decode["start"]:region_decode["end"]]
