@@ -40,7 +40,10 @@ def to_mono(np_array : np.array) -> np.array:
 
 def normalize(np_array : np.array) -> np.array:
     normalized = np_array / np.max(np.abs(np_array), axis=0)
-    return normalized
+
+    int16__scale = np.int16(normalized / np.max(np.abs(normalized)) * 32767)
+
+    return int16__scale
 
 def to_greyscale(np_array : np.array, method = 1) -> np.array:
     """
@@ -73,7 +76,10 @@ def resample(np_array : np.array, old_sr, new_sr) -> np.array:
     resampling_ratio = float(new_sr) / float(old_sr)
     new_num_samples = int(len(np_array) * resampling_ratio)
     resampled = scipy.signal.resample(np_array, new_num_samples)
-    return resampled
+
+    int16__scale = np.int16(resampled / np.max(np.abs(resampled)) * 32767)
+
+    return int16__scale
 
 def resize(np_array : np.array, width, height, order = 3) -> np.array:
     """
